@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Basic page needs-->
+  <title>Uriel Sace</title>
+  <meta charset="UTF-8" />
+  <meta name="author" content="" />
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <!-- Mobile specific metas-->
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <!-- Favicon-->
+  <link rel="shortcut icon" href="images/icon.png" />
+  <!-- Google Web Fonts-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Unna" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli" />
+  <!-- Vendor CSS-->
+  <link rel="stylesheet" media="all" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" media="all" href="css/font-awesome.min.css" />
+  <link rel="stylesheet" media="all" href="css/linearicons.css" />
+  <link rel="stylesheet" media="all" href="css/apolo-icons.css" />
+  <link rel="stylesheet" media="all" href="css/hamburgers.min.css" />
+  <link rel="stylesheet" media="all" href="css/animate.css" />
+  <link rel="stylesheet" media="all" href="vendors/fancybox/jquery.fancybox.min.css" />
+  <link rel="stylesheet" media="all" href="vendors/owl-carousel/assets/owl.carousel.min.css" />
+  <link rel="stylesheet" media="all" href="vendors/mCustomScrollbar/jquery.mCustomScrollbar.min.css" />
+  <link rel="stylesheet" media="all" href="vendors/arcticmodal/jquery.arcticmodal-0.3.css" />
+  <!-- Theme CSS-->
+  <link rel="stylesheet" media="all" href="css/style.css" />
+  <!-- Vendor JS-->
+  <script src="vendors/modernizr.js"></script>
+  <style>
+    .video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .apo-striped-photo-description {
+      z-index: 2;
+      position: relative;
+    }
+
+    .apo-striped-photo {
+      overflow: hidden;
+      /* Ensure video doesn't spill out */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-follower"></div>
+  <style>
+    body {
+      cursor: none;
+      /* Hide default cursor */
+    }
+
+    .custom-cursor {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: #ffffff;
+      /* White to be visible on black with difference mode */
+      border-radius: 50%;
+      z-index: 2147483647;
+      /* MAX SAFE INTEGER */
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s;
+      mix-blend-mode: difference;
+      /* Cool effect over images */
+    }
+
+    .custom-cursor-follower {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      /* White border */
+      border-radius: 50%;
+      z-index: 2147483646;
+      /* Just below dot */
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s, width 0.3s, height 0.3s, background 0.3s;
+    }
+
+    /* Hover state for cursor */
+    .cursor-hover .custom-cursor {
+      transform: translate(-50%, -50%) scale(0.5);
+      /* Shrink dot */
+    }
+
+    .cursor-hover .custom-cursor-follower {
+      transform: translate(-50%, -50%) scale(1.5);
+      background: rgba(255, 215, 0, 0.2);
+      /* Soft Yellow tint */
+      border-color: #FFD700;
+    }
+
+    /* Ensure links have pointer cursor logic handled by JS */
+    a,
+    button,
+    .apo-striped-photo,
+    body.arcticmodal-loading,
+    .arcticmodal-container,
+    .apo-hidden-column,
+    .arcticmodal-overlay,
+    .apo-navigation a {
+      cursor: none !important;
+    }
+
+    /* ELEGANT HOVERS */
+    .apo-striped-photo-title a {
+      transition: color 0.4s ease, transform 0.4s ease;
+      display: inline-block;
+    }
+
+    /* Hovering the PHOTO container triggers title change */
+    .apo-striped-photo:hover .apo-striped-photo-title a {
+      color: #FFD700 !important;
+      /* Brand Yellow */
+      transform: translateY(-5px);
+    }
+
+    /* CINEMATIC INTRO */
+    .apo-preloader {
+      background-color: #000;
+      z-index: 10000;
+      /* Above everything */
+    }
+
+    .intro-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .intro-logo {
+      width: 80px;
+      height: auto;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: fadeInUpFadeOut 3s forwards;
+    }
+
+    .intro-text {
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUpFadeOut 3s forwards 0.3s;
+      /* Delay after logo */
+      text-align: center;
+    }
+
+    .intro-subtext {
+      color: #FFD700;
+      font-size: 14px;
+      letter-spacing: 6px;
+      margin-top: 10px;
+      opacity: 0;
+      animation: fadeInUpFadeOut 3s forwards 0.6s;
+      /* Delay after text */
+    }
+
+    @keyframes fadeInUpFadeOut {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+      }
+
+      20% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      80% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-20px) scale(1.1);
+      }
+    }
+  </style>
+  <!-- Preloader-->
+  <div class="apo-preloader">
+    <div class="apo-preloader-outer">
+      <div class="apo-preloader-inner">
+        <!-- Replaced image loader with Typography + Logo -->
+        <div class="intro-container">
+          <img src="images/carita.png" alt="Logo" class="intro-logo">
+          <div class="intro-text">Uriel Sace</div>
+          <div class="intro-subtext">Creative Director</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Preloader-->
+  <!-- Site Header-->
+  <!-- Site Header-->
+  <header id="header" class="apo-header apo-header-transparent">
+    <div class="apo-header-section">
+      <div class="apo-header-component-first">
+        <div class="apo-header-items">
+          <div class="apo-header-item">
+            <!-- Logo--><a href="index.html" title="Home"><img src="images/sacelogo.png" alt="Logo" /></a>
+            <!-- End Logo-->
+          </div>
+        </div>
+      </div>
+      <div class="apo-header-component-last">
+        <div class="apo-header-items">
+          <div class="apo-header-item">
+            <!-- Navigation Button-->
+            <div type="button" data-arctic-modal="#modal-nav"
+              class="apo-header-button hamburger hamburger--emphatic apo-hamburger-clickable"><span
+                class="hamburger-box"><span class="hamburger-inner"></span></span></div>
+            <!-- End Navigation Button-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- End Site Header-->
+  <!-- Page Content-->
+  <div class="apo-page">
+    <!-- Full Page Carousel-->
+    <div class="apo-striped-photos apo-full-height owl-carousel" style="max-height: 100vh !important;">
+      <article class="apo-striped-photo">
+        <video class="video-bg" autoplay loop muted playsinline>
+          <source src="videos/cfe_fantasma.mp4" type="video/mp4">
+        </video>
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Video</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">CFE Fantasma</a></h2>
+              <div class="apo-striped-photo-meta"><small>2025</small></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/car_3.jpg" class="apo-striped-photo">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Photography</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Galería Nueva</a></h2>
+              <div class="apo-striped-photo-meta"><small>2025</small></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="apo-striped-photo">
+        <video class="video-bg" autoplay loop muted playsinline>
+          <source src="videos/spot_orgullo.mp4" type="video/mp4">
+        </video>
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Video</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Spot Orgullo</a></h2>
+              <div class="apo-striped-photo-meta"><small>2025</small></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article data-bg-img-src="images/IMG_7260.png" class="apo-striped-photo">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Gastronomy</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Culinary Art</a></h2>
+              <div class="apo-striped-photo-meta"><small>2025</small></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/n12.png" class="apo-striped-photo ">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Design</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Ibero</a></h2>
+              <div class="apo-striped-photo-meta"><small>2024</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/web3.png" class="apo-striped-photo ">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Web</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Maquetado Web</a></h2>
+              <div class="apo-striped-photo-meta"><small>2019</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/sace2.jpeg" class="apo-striped-photo ">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Design</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Menú Malik</a></h2>
+              <div class="apo-striped-photo-meta"><small>2022</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/car_2.jpg" class="apo-striped-photo">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Photography</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Galería Nueva</a></h2>
+              <div class="apo-striped-photo-meta"><small>2025</small></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/sace23.png" class="apo-striped-photo ">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">3D Model</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Aeroart</a></h2>
+              <div class="apo-striped-photo-meta"><small>2022</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/sace22.png" class="apo-striped-photo ">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Video</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">El Vitor Mobil</a></h2>
+              <div class="apo-striped-photo-meta"><small>2021</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="apo-striped-photo">
+        <video class="video-bg" autoplay loop muted playsinline>
+          <source src="videos/sedena.mp4" type="video/mp4">
+        </video>
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Video</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">SEDENA Institucional</a></h2>
+              <div class="apo-striped-photo-meta"><small>2025</small></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/fermin.jpg" class="apo-striped-photo ">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Design</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Artist Autoart</a></h2>
+              <div class="apo-striped-photo-meta"><small>2022</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="apo-striped-photo">
+        <video class="video-bg" autoplay loop muted playsinline>
+          <source src="videos/spot_sarampion.mp4" type="video/mp4">
+        </video>
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Video</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Spot Sarampión</a></h2>
+              <div class="apo-striped-photo-meta"><small>2025</small></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/sace35.png" class="apo-striped-photo ">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Design</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Paralelo</a></h2>
+              <div class="apo-striped-photo-meta"><small>2024</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/sace24.png" class="apo-striped-photo ">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">3D Model</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Virtual Set</a></h2>
+              <div class="apo-striped-photo-meta"><small>2020</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/game_impostor_tarot.png" class="apo-striped-photo">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="https://impostortarot.netlify.app/" target="_blank">Game Dev</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title">
+                <a href="https://impostortarot.netlify.app/" target="_blank">Impostor Tarot <i
+                    class="fa fa-external-link" style="font-size: 0.5em; vertical-align: middle;"></i></a>
+              </h2>
+              <div class="apo-striped-photo-meta">
+                <span
+                  style="border: 1px solid #fff; padding: 5px 10px; border-radius: 20px; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px;">Play
+                  Now</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/car_4.png" class="apo-striped-photo">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Design</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Diseño</a></h2>
+              <div class="apo-striped-photo-meta"><small>2025</small></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/sace21.png" class="apo-striped-photo ">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Design</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Podcast Rib Eye</a></h2>
+              <div class="apo-striped-photo-meta"><small>2021</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/car_5.png" class="apo-striped-photo">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Design</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Monstruo Divertido</a></h2>
+              <div class="apo-striped-photo-meta"><small>2025</small></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/6.png" class="apo-striped-photo">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="https://www.diariomujerycafemovie.com/" target="_blank">Web Dev</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title">
+                <a href="https://www.diariomujerycafemovie.com/" target="_blank">Diario Mujer y Café <i
+                    class="fa fa-external-link" style="font-size: 0.5em; vertical-align: middle;"></i></a>
+              </h2>
+              <div class="apo-striped-photo-meta">
+                <span
+                  style="border: 1px solid #fff; padding: 5px 10px; border-radius: 20px; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px;">Visit
+                  Website</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/sace16.jpeg" class="apo-striped-photo ">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Design</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Menú Akilia</a></h2>
+              <div class="apo-striped-photo-meta"><small>2022</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/car_1.jpg" class="apo-striped-photo">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Photography</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Galería Nueva</a></h2>
+              <div class="apo-striped-photo-meta"><small>2025</small></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/sace25.jpg" class="apo-striped-photo ">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">3D Model</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Personal Project</a></h2>
+              <div class="apo-striped-photo-meta"><small>2019</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="apo-striped-photo">
+        <video class="video-bg" autoplay loop muted playsinline>
+          <source src="videos/video_nuevo.mp4" type="video/mp4">
+        </video>
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Video</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Nuevo Spot</a></h2>
+              <div class="apo-striped-photo-meta"><small>2025</small></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/n13.png" class="apo-striped-photo ">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">Design</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Fotografía</a></h2>
+              <div class="apo-striped-photo-meta"><small>2024</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article data-bg-img-src="images/sace19.png" class="apo-striped-photo ">
+        <div class="apo-striped-photo-description">
+          <div class="apo-aligner-outer">
+            <div class="apo-aligner-inner">
+              <ul class="apo-striped-photo-categories">
+                <li><a href="#">3D Model</a></li>
+              </ul>
+              <h2 class="apo-striped-photo-title"><a href="#">Personal Project</a></h2>
+              <div class="apo-striped-photo-meta"><small>2019</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+    <!-- End of Full Page Carousel-->
+  </div>
+  <!-- End Page Content-->
+  <!-- Footer-->
+  <!-- End Footer-->
+  <!-- Modal Window-->
+  <div class="apo-d-none">
+    <div id="modal-nav" class="apo-modal apo-modal-fullscreen-nav">
+      <div class="container">
+        <div class="apo-section">
+          <div class="apo-grid apo-cols-4">
+            <section class="apo-grid-col">
+
+
+              <h5 class="apo-fullscreen-nav-title"> <a href="index.html" style="color:#ffffff;">Home</a></h5>
+
+
+            </section>
+            <section class="apo-grid-col">
+              <h5 class="apo-fullscreen-nav-title"> <a href="aboutme.html" style="color:#ffffff;">About Me</a></h5>
+
+            </section>
+            <section class="apo-grid-col">
+              <h5 class="apo-fullscreen-nav-title"> <a href="portfolio.html" style="color:#ffffff;">Portfolio</a></h5>
+
+            </section>
+
+          </div>
+
+
+        </div>
+      </div>
+      <div class="arctic-modal-close-container"><button type="button" class="apo-close-btn arcticmodal-close"><i
+            class="icon icon-cross"></i> Close</button></div>
+    </div>
+  </div>
+  <!-- End Modal Window-->
+  <!-- Vendor JS-->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="vendors/handlebars-v4.0.5.js"></script>
+
+  <script src="vendors/wt.validator.min.js"></script>
+  <script src="vendors/jquery.easing.1.3.min.js"></script>
+  <script src="vendors/mad.accordion.js"></script>
+  <script src="vendors/mad.customselect.js"></script>
+  <script src="vendors/mad.tabs.js"></script>
+  <script src="vendors/wat.counters.js"></script>
+  <script src="vendors/wt.jquery.nav.1.0.js"></script>
+  <script src="vendors/isotope.pkgd.min.js"></script>
+  <script src="vendors/imagesloaded.pkgd.min.js"></script>
+  <script src="vendors/fancybox/jquery.fancybox.min.js"></script>
+  <script src="vendors/appear.min.js"></script>
+  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+  <script src="vendors/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="vendors/arcticmodal/jquery.arcticmodal-0.3.min.js"></script>
+  <!-- Theme JS-->
+  <script src="js/apolo.core.js"></script>
+  <script src="js/modules/apolo.newsletter.js"></script>
+  <script src="js/modules/apolo.sameheight.js"></script>
+  <script src="js/modules/apolo.appear.js"></script>
+  <script src="js/modules/apolo.isotope.js"></script>
+  <style>
+    .apo-social-links-floating {
+      position: fixed;
+      bottom: 40px;
+      left: 60px;
+      /* Adjusted to likely align with standard margins */
+      z-index: 999;
+      display: flex;
+      gap: 20px;
+    }
+
+    .apo-social-links-floating a {
+      color: #000;
+      background-color: #FFD700;
+      /* Yellow 'Carita' color guess */
+      width: 45px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 12px;
+      font-size: 20px;
+      opacity: 1;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .apo-social-links-floating a:hover {
+      background-color: #ffea00;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      .apo-social-links-floating {
+        left: 20px;
+        bottom: 20px;
+      }
+    }
+  </style>
+  <div class="apo-social-links-floating">
+    <a href="https://woonagency.pixieset.com/" target="_blank" title="Woon Agency Portfolio"><i
+        class="fa fa-camera"></i></a>
+    <a href="https://www.instagram.com/pulso.creativehaus/" target="_blank" title="Pulso Creative Haus"><i
+        class="fa fa-instagram"></i></a>
+    <a href="https://www.youtube.com/@FrecuenciaHuas" target="_blank" title="Frecuencia Huas"><i
+        class="fa fa-youtube-play"></i></a>
+  </div>
+  <script>
+    // Custom Cursor Logic
+    document.addEventListener('DOMContentLoaded', function () {
+      const cursor = document.querySelector('.custom-cursor');
+      const follower = document.querySelector('.custom-cursor-follower');
+
+      if (window.innerWidth > 992) { // Only on desktop
+        document.addEventListener('mousemove', function (e) {
+          // Move dot instantly
+          cursor.style.left = e.clientX + 'px';
+          cursor.style.top = e.clientY + 'px';
+
+          // Move follower with slight delay (handled by CSS transition partially, 
+          // but direct update prevents lag better if we used requestAnimationFrame, 
+          // but simple left/top update is fine for this minimal feel)
+          // Actually, let's use a timeout or just direct follow for simplicity 
+          // but CSS handles the smooth 'floating' feel via transition.
+          follower.style.left = e.clientX + 'px';
+          follower.style.top = e.clientY + 'px';
+        });
+
+        // Add hover class to body/cursor when hovering clickable elements
+        const clickable = document.querySelectorAll('a, button, .apo-header-button, .apo-striped-photo-title');
+
+        clickable.forEach(el => {
+          el.addEventListener('mouseenter', () => {
+            document.body.classList.add('cursor-hover');
+          });
+          el.addEventListener('mouseleave', () => {
+            document.body.classList.remove('cursor-hover');
+          });
+        });
+      }
+    });
+
+    // Intro Animation Logic
+    // We override the default theme loader behavior or augment it.
+    // The theme likely uses standard window.load. We'll ensure our text animation plays out.
+
+    window.addEventListener('load', function () {
+      // Wait for CSS animation (3s + 0.5s delay approx)
+      setTimeout(function () {
+        $('.apo-preloader').fadeOut('slow');
+      }, 3000); // 3 seconds total
+    });
+
+  </script>
+  <script src="js/apolo.init.js"></script>
+</body>
+
+</html>
